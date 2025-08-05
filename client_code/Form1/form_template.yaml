@@ -1,5 +1,11 @@
 components:
-- layout_properties: {slot: default}
+- components:
+  - event_bindings: {change: file_loader_1_change}
+    layout_properties: {grid_position: 'JBYUAF,DOIXBT'}
+    name: file_loader_1
+    properties: {}
+    type: FileLoader
+  layout_properties: {slot: default}
   name: content_panel
   properties: {}
   type: ColumnPanel

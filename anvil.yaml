@@ -6,5 +6,15 @@ runtime_options:
   server_spec: {base: python310-minimal}
   server_version: python3-sandbox
   version: 2
-services: []
+secrets:
+  db_password:
+    type: secret
+    value: {RBO5ZO4OUM66F4UK: xWuvEy0j/NqFp32rJTK2b54wzzd/v3AmZdu/1mHc0CQ+6Oo4ncWn9ekOI572TppQbKsRdQMgCh5n+wOsgczoNFBs9mIg/gXELI0k07VMSq2trDDOiFaowrNDIazdoW20HJzIsMb9uEhu4QrvL/r5Gys8ww==}
+services:
+- client_config: {}
+  server_config: {}
+  source: /runtime/services/tables.yml
+- client_config: {}
+  server_config: {}
+  source: /runtime/services/anvil/secrets.yml
 startup_form: Form1

@@ -1,5 +1,6 @@
 from ._anvil_designer import Form1Template
 from anvil import *
+import anvil.server
 
 
 class Form1(Form1Template):
@@ -8,3 +9,6 @@ class Form1(Form1Template):
     self.init_components(**properties)
 
     # Any code you write here will run before the form opens.
+
+  def file_loader_1_change(self, file, **event_args):
+    parse_csv(uploaded_files)
