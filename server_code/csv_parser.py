@@ -43,7 +43,7 @@ def transform_to_table_rows(df):
                 val = str(val)
             converted[new_col] = val
         rows.append(converted)
-    return rows
+        return rows
 
 def parse_date(date_str):
     if not date_str or str(date_str).strip() == "":
