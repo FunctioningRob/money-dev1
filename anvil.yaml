@@ -1,6 +1,6 @@
 allow_embedding: false
-name: Material Design 1
-package_name: Material_Design_1
+name: money_dev1
+package_name: money_dev1
 runtime_options:
   client_version: '3'
   server_spec: {base: python310-minimal}
