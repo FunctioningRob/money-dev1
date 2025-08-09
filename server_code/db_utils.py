@@ -16,7 +16,7 @@ def connect():
     cursorclass=pymysql.cursors.DictCursor
   )
 
-def run_query(query, params=None, fetch=True):
+def run_select_query(query, params=None, fetch=True):
   conn = connect()
   with conn.cursor() as cursor:
     cursor.execute(query, params or ())
@@ -29,3 +29,5 @@ def run_query(query, params=None, fetch=True):
 
 def _convert_decimal(row):
   return {k: float(v) if isinstance(v, decimal.Decimal) else v for k, v in row.items()}
+
+  
