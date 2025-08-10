@@ -1,6 +1,5 @@
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
+#see I'm new
+
 import anvil.secrets
 import pandas as pd
 import io

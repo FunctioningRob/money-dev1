@@ -1,6 +1,3 @@
-import anvil.tables as tables
-import anvil.tables.query as q
-from anvil.tables import app_tables
 import anvil.secrets
 # ---------------- server_module/file_utils.py ----------------
 from db_utils import run_select_query

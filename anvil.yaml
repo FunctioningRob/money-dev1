@@ -1,15 +1,5 @@
 allow_embedding: false
-db_schema:
-  table_1:
-    client: none
-    columns: []
-    server: full
-    title: Table 1
-  table_2:
-    client: none
-    columns: []
-    server: full
-    title: Table 2
+db_schema: {}
 name: money_dev1
 package_name: money_dev1
 runtime_options:
