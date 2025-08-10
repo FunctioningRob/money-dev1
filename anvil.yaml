@@ -1,7 +1,7 @@
 allow_embedding: false
 db_schema: {}
-name: money_dev1
-package_name: money_dev1
+name: money_dev2
+package_name: money_dev2
 runtime_options:
   client_version: '3'
   server_spec: {base: python310-minimal}
