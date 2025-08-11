@@ -23,14 +23,40 @@ def parse_csv(file, currency=None, account_name=None):
   print(f"import_params={import_params}")
   if not import_params:
     return {"error": "No import parameters found for this file ID."}
+
+
   
   df = parse_csv_file(file, file_params, import_params)
   rows = transform_to_table_rows(df)
 
+  append_query = "INSERT INTO tblstagetransactions ( \
+                   TransactionDate, PaidTo,Currency,Debit,Credit,Balance) "
   #app_tables.tmp_stage_transactions.delete_all_rows()
+  values_list=[]
   for row in rows:
+    value_parts=[]
+    for key in import_params:
+      sql_val = row[import_params[key]]
+      print(sql_val)
+      # Add quotes if the value is a string
+      if isinstance(sql_val, str):
+        val = f"'{sql_val}'"
+      value_parts.append(str(sql_val))
+      values_list.append(f"({', '.join(value_parts)})")
+
+    
     #app_tables.tmp_stage_transactions.add_row(**row)
     return {"status": "success", "row_count": len(rows)}
+
+  column_map = {
+    'Value Date': 'TransactionDate',
+    'Text': 'PaidTo',
+    'Currency': 'Currency',
+    'Debit': 'Debit',
+    'Credit': 'Credit',
+    'Balance': 'Balance'
+  }
+
 
 @anvil.server.callable
 def query_db(query, params=None):

@@ -6,9 +6,12 @@ import io
 from datetime import datetime
 
 def parse_csv_file(file, file_params, import_params):
+  #file_params = anvil.server.call['get_import_params(file)',file]
   csv_text = file.get_bytes().decode('latin1')
-  df = pd.read_csv(io.StringIO(csv_text), header=0)
 
+  df = pd.read_csv(io.StringIO(csv_text), header=import_params['header_row'])
+  
+  #remove the last row (totals)
   if df.tail(1).isnull().all(axis=1).any():
     df = df.iloc[:-1]
 
@@ -28,8 +31,7 @@ def transform_to_table_rows(df):
     'Credit': 'Credit',
     'Balance': 'Balance'
   }
-
-  
+ 
   filtered_cols = [col for col in df.columns if col in column_map]
   renamed_cols = [column_map[col] for col in filtered_cols]
 
