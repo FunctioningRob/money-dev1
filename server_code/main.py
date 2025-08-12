@@ -36,6 +36,7 @@ def parse_csv(file, currency=None, account_name=None):
   for row in rows:
     value_parts=[]
     for key in import_params:
+      print(key)
       sql_val = row[import_params[key]]
       print(sql_val)
       # Add quotes if the value is a string
