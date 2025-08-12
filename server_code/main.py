@@ -34,17 +34,32 @@ def parse_csv(file, currency=None, account_name=None):
   #app_tables.tmp_stage_transactions.delete_all_rows()
   values_list=[]
   for row in rows:
+    print(row)
     value_parts=[]
     for key in import_params:
-      print(key)
-      sql_val = row[import_params[key]]
-      print(sql_val)
-      # Add quotes if the value is a string
-      if isinstance(sql_val, str):
-        val = f"'{sql_val}'"
-      value_parts.append(str(sql_val))
-      values_list.append(f"({', '.join(value_parts)})")
+      print (key)
+      """if key in import_params.value:
+        sql_val = row[key]
+        print(key + " --> " + key.value)
+        
+      SELECT `tblImportParameters`.`AccountId`,
+    `tblImportParameters`.`TransactionDate`,
+    `tblImportParameters`.`PaidTo`,
+    `tblImportParameters`.`Currency`,
+    `tblImportParameters`.`Debit`,
+    `tblImportParameters`.`Credit`,
+    `tblImportParameters`.`Balance`,
+    `tblImportParameters`.`header_row`
+FROM `bbelbnkbjyewmxmblwdi`.`tblImportParameters`;
 
+       
+        print(sql_val)
+      # Add quotes if the value is a string
+        if isinstance(sql_val, str):
+          val = f"'{sql_val}'"
+        value_parts.append(str(sql_val))
+        values_list.append(f"({', '.join(value_parts)})")"""
+  
     
     #app_tables.tmp_stage_transactions.add_row(**row)
     return {"status": "success", "row_count": len(rows)}
