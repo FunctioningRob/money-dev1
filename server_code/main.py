@@ -28,9 +28,15 @@ def parse_csv(file, currency=None, account_name=None):
   
   df = parse_csv_file(file, file_params, import_params)
   rows = transform_to_table_rows(df)
+  remove = {'AccountId', 'header_row'}
+  imported_sheet_columns = {k: v for k, v in import_params.items() if k not in remove}
+  imported_headers = list(imported_sheet_columns.values())
+  database_columns = list(imported_sheet_columns.keys())
+  print(imported_headers)
+  print(database_columns)
+  
+  exit()
 
-  append_query = "INSERT INTO tblstagetransactions ( \
-                   TransactionDate, PaidTo,Currency,Debit,Credit,Balance) "
   #app_tables.tmp_stage_transactions.delete_all_rows()
   values_list=[]
   for row in rows:
