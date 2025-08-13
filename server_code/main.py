@@ -2,7 +2,7 @@ import anvil.secrets
 import anvil.server
 from anvil.tables import app_tables
 from db_utils import run_select_query
-from file_utils import match_file_id, get_file_params, get_import_params
+from file_utils import match_file_id, get_file_params, get_import_params, map_and_order_values
 from csv_parser import parse_csv_file, transform_to_table_rows
 
 @anvil.server.callable
@@ -23,14 +23,13 @@ def parse_csv(file, currency=None, account_name=None):
   print(f"import_params={import_params}")
   if not import_params:
     return {"error": "No import parameters found for this file ID."}
-
   
   df = parse_csv_file(file, file_params, import_params)
-  rows = transform_to_table_rows(df)
-  print(map_and_order_values(row, import_columns)
+  value = transform_to_table_rows(df)
+  print(map_and_order_values(value, import_columns))
         
         
-        """
+"""
   remove = {'AccountId', 'header_row'}
   imported_sheet_columns = {k: v for k, v in import_params.items() if k not in remove}
   #imported_headers = list(imported_sheet_columns.values())
@@ -107,11 +106,3 @@ FROM `bbelbnkbjyewmxmblwdi`.`tblImportParameters`;
 def query_db(query, params=None):
   return run_query(query, params, fetch=True)
 
-def map_and_order_values(row, import_columns):
-  # import_columns keys are target DB columns in order you want,
-  # values are keys in your input row dictionary.
-  ordered_values = []
-  for db_col in import_columns:
-    import_col = import_columns[db_col]
-    ordered_values.append(row.get(import_col))
-  return ordered_values
