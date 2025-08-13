@@ -11,6 +11,7 @@ def get_file_params(acc_no):
   rows = run_select_query("SELECT * FROM tblAccounts WHERE AccountNumber = %s", (acc_no,))
   return rows[0] if rows else None
 
+@anvil.server.callable
 def get_import_columns():
   rows = run_select_query("Show Tables,")
   return rows[0] if rows else None

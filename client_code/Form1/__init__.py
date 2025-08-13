@@ -10,7 +10,8 @@ class Form1(Form1Template):
     # Any code you write here will run before the form opens.
 
   def file_loader_1_change(self, file, **event_args):
-    result = anvil.server.call('parse_csv', file)
+    result = get_import_columns()
+    #result = anvil.server.call('parse_csv', file)
     print(result)
 
     alert("CSV data saved to the data table!")
