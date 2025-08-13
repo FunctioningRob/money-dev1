@@ -11,6 +11,6 @@ def get_file_params(acc_no):
   rows = run_select_query("SELECT * FROM tblAccounts WHERE AccountNumber = %s", (acc_no,))
   return rows[0] if rows else None
 
-def get_import_params(file_id):
-  rows = run_select_query("SELECT * FROM tblImportParameters WHERE AccountID = %s", (file_id,))
+def get_import_columns():
+  rows = run_select_query("Show Tables,")
   return rows[0] if rows else None

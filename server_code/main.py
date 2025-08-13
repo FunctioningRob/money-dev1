@@ -27,6 +27,10 @@ def parse_csv(file, currency=None, account_name=None):
   
   df = parse_csv_file(file, file_params, import_params)
   rows = transform_to_table_rows(df)
+  print(map_and_order_values(row, import_columns)
+        
+        
+        """
   remove = {'AccountId', 'header_row'}
   imported_sheet_columns = {k: v for k, v in import_params.items() if k not in remove}
   #imported_headers = list(imported_sheet_columns.values())
@@ -55,13 +59,14 @@ def parse_csv(file, currency=None, account_name=None):
     # Collect values for all columns for this row
     print("Col " .join(col for col in imported_sheet_columns))
     print("row " .join( [row[col] for col in imported_sheet_columns]))
-    
-    values = [row[col] for col in imported_sheet_columns]
-    values_list.append(values)
+    print(imported_sheet_columns)
+    for col in imported_sheet_columns:    
+     values = [row[col] for col in imported_sheet_columns]
+     values_list.append(values)
     
    
 
-"""
+
       if key in import_params.value:
         sql_val = row[key]
         print(key + " --> " + key.value)
@@ -101,3 +106,12 @@ FROM `bbelbnkbjyewmxmblwdi`.`tblImportParameters`;
 @anvil.server.callable
 def query_db(query, params=None):
   return run_query(query, params, fetch=True)
+
+def map_and_order_values(row, import_columns):
+  # import_columns keys are target DB columns in order you want,
+  # values are keys in your input row dictionary.
+  ordered_values = []
+  for db_col in import_columns:
+    import_col = import_columns[db_col]
+    ordered_values.append(row.get(import_col))
+  return ordered_values
