@@ -24,27 +24,45 @@ def parse_csv(file, currency=None, account_name=None):
   if not import_params:
     return {"error": "No import parameters found for this file ID."}
 
-
   
   df = parse_csv_file(file, file_params, import_params)
   rows = transform_to_table_rows(df)
   remove = {'AccountId', 'header_row'}
   imported_sheet_columns = {k: v for k, v in import_params.items() if k not in remove}
-  imported_headers = list(imported_sheet_columns.values())
+  #imported_headers = list(imported_sheet_columns.values())
   database_columns = list(imported_sheet_columns.keys())
-  print(imported_headers)
-  print(database_columns)
+ 
+
+    
+    
   
-  exit()
+  #insert_statement = f"INSERT INTO tblStagedTransactions({', '.join(database_columns)})"
+  # Build column string
+  columns_str = ', '.join(database_columns)
+  
+# Create placeholders for parameterized query
+  placeholders = ', '.join(['?'] * len(database_columns))
+ 
+# Final SQL statement
+  insert_statement = f"INSERT INTO tblStagedTransactions({columns_str}) VALUES ({placeholders})"
+
+  print(insert_statement)
 
   #app_tables.tmp_stage_transactions.delete_all_rows()
   values_list=[]
   for row in rows:
     print(row)
-    value_parts=[]
-    for key in import_params:
-      print (key)
-      """if key in import_params.value:
+    # Collect values for all columns for this row
+    print("Col " .join(col for col in imported_sheet_columns))
+    print("row " .join( [row[col] for col in imported_sheet_columns]))
+    
+    values = [row[col] for col in imported_sheet_columns]
+    values_list.append(values)
+    
+   
+
+"""
+      if key in import_params.value:
         sql_val = row[key]
         print(key + " --> " + key.value)
         
@@ -68,8 +86,8 @@ FROM `bbelbnkbjyewmxmblwdi`.`tblImportParameters`;
   
     
     #app_tables.tmp_stage_transactions.add_row(**row)
-    return {"status": "success", "row_count": len(rows)}
-
+    #return {"status": "success", "row_count": len(rows)}
+"""
   column_map = {
     'Value Date': 'TransactionDate',
     'Text': 'PaidTo',
@@ -78,7 +96,7 @@ FROM `bbelbnkbjyewmxmblwdi`.`tblImportParameters`;
     'Credit': 'Credit',
     'Balance': 'Balance'
   }
-
+"""
 
 @anvil.server.callable
 def query_db(query, params=None):
