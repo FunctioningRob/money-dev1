@@ -1,13 +1,6 @@
 import anvil.secrets
 import anvil.server
-from db_utils import run_select_query
 
-@anvil.server.callable
-def db_check():
-  #rows = run_select_query("SELECT * FROM tblFileParameters;")
-  rows = run_select_query("Select AccountNumber, AccountName from tblAccounts;")
-                        
-  return rows
 # This is a server module. It runs on the Anvil server,
 # rather than in the user's browser.
 #

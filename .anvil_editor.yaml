@@ -7,6 +7,7 @@ unique_ids:
   modules: {}
   scripts: {}
   server_modules:
+    ServerModule1: '1755176022098967823602346.5359'
     csv_parser: '175442643580478350852579.84808'
     db_utils: '1754426563520269310561100.08978'
     file_utils: '1754426371538354309364583.7133'
