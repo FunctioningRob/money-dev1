@@ -19,6 +19,7 @@ def run_select_query(query, params=None, fetch=True):
     cursor.execute(query, params or ())
     if fetch:
       rows = cursor.fetchall()
+      print(rows)
       return [_convert_decimal(row) for row in rows]
     else:
       conn.commit()

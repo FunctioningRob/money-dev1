@@ -8,7 +8,6 @@ from datetime import datetime
 def parse_csv_file(file, file_params, import_params):
   #file_params = anvil.server.call['get_import_params(file)',file]
   csv_text = file.get_bytes().decode('latin1')
-
   df = pd.read_csv(io.StringIO(csv_text), header=import_params['header_row'])
   
   #remove the last row (totals)

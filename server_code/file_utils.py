@@ -8,21 +8,24 @@ def match_file_id(file_name):
   return next((fid for fid in FILE_IDS if fid in file_name), None)
 
 def get_file_params(acc_no):
-  rows = run_select_query("SELECT * FROM tblAccounts WHERE AccountNumber = %s", (acc_no,))
+  rows = run_select_query("SELECT * FROM tblAccounts WHERE AccountID = %s", (acc_no))
   return rows[0] if rows else None
 
-def get_import_params():
-  
-  return  None
+def testing_db():
+  rows = run_select_query("SELECT * FROM tblAccounts")
+  return rows[0] if rows else None
 
-@anvil.server.callable
-def get_import_columns():
-  rows = run_select_query("Show Tables")
+def get_import_params(acc_ID):
+  rows = run_select_query("SELECT * FROM tblImportParameters WHERE AccountID = %s", (acc_ID,))
+  return  rows[0]
+
+def get_import_columns(acc_no):
+  rows = run_select_query("SELECT * FROM tblImportParameters WHERE AccountID = %s", (acc_no,))
   return rows[0] if rows else None
 
 def map_and_order_values(row, import_columns):
   # import_columns keys are target DB columns in order you want,
-# values are keys in your input row dictionary.
+  # values are keys in your input row dictionary.
   ordered_values = []
   for db_col in import_columns:
     import_col = import_columns[db_col]
